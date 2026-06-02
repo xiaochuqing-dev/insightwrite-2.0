@@ -1,0 +1,9 @@
+article代表精选文章页面
+favorite是收藏页
+grammar是语法库页面
+history是历史页面
+outcome是分析结果页面
+welcome是欢迎页
+setting是设置页
+login登录页
+main是主页

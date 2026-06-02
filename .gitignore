@@ -1,0 +1,26 @@
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Backend
+backend/target/
+backend/uploads/
+backend/src/main/resources/application-local.yml
+*.class
+*.jar
+
+# Local environment
+.env
+!.env.example
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Local automation/runtime logs
+.codex-run/

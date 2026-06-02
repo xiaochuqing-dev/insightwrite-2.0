@@ -1,0 +1,58 @@
+server:
+  port: 8080
+
+insightwrite:
+  jwt:
+    secret: ${JWT_SECRET}
+  deepseek:
+    api-key: ${DEEPSEEK_API_KEY}
+    api-url: https://api.deepseek.com/v1/chat/completions
+    model-pro: deepseek-v4-pro
+    model-flash: deepseek-v4-flash
+  credits:
+    costs:
+      basic: 25
+      quality: 35
+      deep: 50
+    daily: 450
+    new-user: 600
+
+spring:
+  config:
+    import:
+      - optional:file:../.env[.properties]
+      - optional:file:.env[.properties]
+      - optional:file:./application-local.yml
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/insightwrite?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  sql:
+    init:
+      mode: ${SQL_INIT_MODE:never}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    open-in-view: false
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  mail:
+    host: smtp.qq.com
+    port: ${MAIL_PORT:465}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+      mail.smtp.ssl.protocols: TLSv1.2
+      mail.smtp.connectiontimeout: 10000
+      mail.smtp.timeout: 10000
+      mail.smtp.writetimeout: 10000

@@ -1,0 +1,3 @@
+放背景图的目录。
+例如：bg-welcome.jpg、bg-home.jpg 等。
+CSS 里通过 background-image: url('@/assets/images/xxx.jpg') 引用。
