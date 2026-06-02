@@ -18,16 +18,12 @@ if not defined MAVEN_CMD (
   where mvn >nul 2>&1
   if not errorlevel 1 set "MAVEN_CMD=mvn"
 )
-if not defined MAVEN_CMD (
-  if exist "C:\Users\Administrator\Desktop\apache-maven-3.9.9\bin\mvn.cmd" (
-    set "MAVEN_CMD=C:\Users\Administrator\Desktop\apache-maven-3.9.9\bin\mvn.cmd"
-  )
-)
 
 if not defined MAVEN_CMD (
   echo.
   echo   Maven was not found.
-  echo   Install Maven 3.9+ and make sure mvn or mvn.cmd is available in PATH.
+  echo   Install Maven 3.9+ and make sure mvn or mvn.cmd is available in PATH,
+  echo   or add a Maven Wrapper to backend\mvnw.cmd.
   echo.
   pause
   exit /b 1

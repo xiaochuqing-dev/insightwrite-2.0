@@ -1,83 +1,86 @@
 # InsightWrite 2.0
 
-InsightWrite 2.0 is a personal full-stack AI English learning application built around two learning paths:
+InsightWrite 2.0 is a full-stack AI English writing and learning product for turning one piece of writing into a structured learning cycle: diagnosis, inline annotation, revision guidance, expression upgrade, review, and knowledge absorption.
 
-- improving through diagnosis, revision, and guided upgrade of the user's own writing;
-- learning through close reading, appreciation, and absorption of strong English examples.
+It is published as an open-source portfolio and reference project, with emphasis on product experience, AI-assisted learning workflows, full-stack implementation, and security-conscious engineering.
 
-The project combines a Vue 3 frontend, a Spring Boot backend, MySQL persistence, authentication, AI-assisted analysis, favorites, history, profile workflows, and a credit-based usage control system. The credit system is designed for AI cost protection and abuse prevention, not for commercial payment or profit.
+![InsightWrite 2.0 showcase](docs/showcase/insightwrite-showcase.png)
 
-This repository is published as an open-source portfolio and reference project. It is not currently deployed as a public online service because live AI usage and long-term operation would create ongoing cost and maintenance obligations.
+## Product Focus
 
-## Highlights
-
-- Full-stack application structure with a Vue 3 + Vite frontend and a Spring Boot 3 backend.
-- AI writing diagnosis, higher-level revision guidance, and close-reading learning workflows.
-- Authentication, password reset, JWT-based sessions, profile management, and account security pages.
-- Credit-based AI usage control for quota management, cost awareness, and abuse prevention.
-- History, favorites, article learning, and knowledge-base flows.
-- Frontend-focused product experience with custom visual design, route structure, reusable components, and responsive pages.
-- Backend layering across controllers, services, repositories, DTOs, entities, configuration, and security utilities.
-- Local startup script, Docker deployment files, schema script, example environment files, and security-focused tests.
-
-## Screenshots
-
-Screenshots are stored under `docs/screenshots/`.
-
-| Page | Preview |
+| Area | What it demonstrates |
 | --- | --- |
-| Welcome | ![Welcome](docs/screenshots/welcome.png) |
-| Login | ![Login](docs/screenshots/login.png) |
-| Workspace | ![Workspace](docs/screenshots/home.png) |
-| Articles | ![Articles](docs/screenshots/articles.png) |
-| Knowledge | ![Knowledge](docs/screenshots/knowledge.png) |
-| Profile | ![Profile](docs/screenshots/profile.png) |
+| AI writing diagnosis | Multi-dimensional scoring and feedback for vocabulary, sentence structure, logic, and writing technique. |
+| Inline annotations | Original-text markup that connects specific sentences and phrases to concrete explanations. |
+| Revision guidance | Upgrade suggestions designed to teach better expression instead of only returning a corrected draft. |
+| Learning loop | History, favorites, curated reading, and an expression knowledge base for repeated review. |
+| Usage control | A credit system for AI cost awareness, quota management, and abuse prevention. |
+| Portfolio value | A complete product surface across frontend experience, backend services, auth, persistence, and tests. |
 
-## Tech Stack
+## Workspace Preview
 
-Frontend:
+The main workspace is designed around writing input, task context, score visibility, mode selection, and follow-up learning actions.
 
-- Vue 3
-- Vue Router 4
-- Vite
-- Axios
-- CSS modules organized through global variables and view-level styles
+![InsightWrite workspace](docs/showcase/workspace.jpg)
 
-Backend:
+## Core Workflow
 
-- Java 17
-- Spring Boot 3
-- Spring MVC
-- Spring Data JPA
-- MySQL 8
-- JWT
-- Spring Security Crypto
-- Spring Mail
+```mermaid
+flowchart LR
+    A[User submits English writing] --> B[Frontend validates task context]
+    B --> C[Backend verifies JWT session]
+    C --> D[Check input limits and credit balance]
+    D --> E[Create analysis task]
+    E --> F[Call AI analysis service]
+    F --> G[Parse scores, annotations, and revision guidance]
+    G --> H[Persist history and credit transaction]
+    H --> I[Render annotated learning result]
+    I --> J[Review, favorite, export, or continue learning]
+```
+
+## Engineering Highlights
+
+| Layer | Implementation |
+| --- | --- |
+| Frontend | Vue 3, Vite, Vue Router, Axios, reusable views/components, responsive visual system. |
+| Backend | Spring Boot 3, Spring MVC, JPA, MySQL, layered controllers, services, repositories, DTOs, and entities. |
+| Authentication | JWT sessions, email verification, password reset, profile and account security workflows. |
+| AI integration | Prompted analysis service, structured result parsing, inline annotation extraction, and mode-aware feedback. |
+| Credits | Balance checks, usage transactions, AI-cost protection, and atomic credit-safety tests. |
+| Security | Sensitive config isolation, input limits, JWT hardening, auth-flow tests, and deployment-aware config checks. |
+
+## Why This Exists
+
+InsightWrite is not designed to replace writing practice, and it is not just a wrapper around a one-time AI correction. ChatGPT or DeepSeek can revise an essay in a single conversation, but that feedback is easy to lose and hard to turn into a repeatable learning process.
+
+InsightWrite is designed to make AI feedback reusable. It connects diagnosis, original-text annotations, revision suggestions, history, favorites, curated examples, and expression knowledge into one product flow, so a learner can see what changed, why it matters, and how to review it later.
+
+## 2.0 Meaning
+
+The `2.0` name represents a rebuilt full-stack version with authentication, persistence, credit control, profile workflows, a stronger frontend experience, and a more complete writing-learning loop.
 
 ## Repository Structure
 
-```text
-.
-├── backend/              # Spring Boot backend
-├── frontend/             # Vue 3 frontend
-├── sql/                  # Database schema
-├── docker/               # Optional Docker deployment files
-├── docs/screenshots/     # README screenshots
-├── .env.example          # Local environment template
-├── start.bat             # Windows local full-stack startup script
-└── README.md
-```
+| Path | Purpose |
+| --- | --- |
+| `backend/` | Spring Boot backend application. |
+| `frontend/` | Vue 3 frontend application. |
+| `sql/` | MySQL database schema. |
+| `docker/` | Optional Docker and Nginx deployment references. |
+| `docs/showcase/` | Portfolio images used by this README. |
+| `.env.example` | Local environment template without secrets. |
+| `start.bat` | Windows local full-stack startup script. |
 
 ## Local Setup
 
 Prerequisites:
 
 - JDK 17
-- Maven 3.9+
+- Maven 3.9+ available through PATH, unless a Maven Wrapper is added later
 - Node.js 18+
 - MySQL 8.0+
 - A DeepSeek API key
-- An SMTP account if you want to use email verification and password reset
+- An SMTP account if email verification and password reset are used
 
 Create the local database:
 
@@ -93,18 +96,20 @@ npm.cmd install
 cd ..
 ```
 
-Copy the environment template and fill in your own local values:
+Copy the environment template and fill in local values:
 
 ```powershell
 Copy-Item .env.example .env
 ```
 
-Required values in `.env`:
+Required `.env` values:
 
-- `DB_USERNAME` and `DB_PASSWORD`: your local MySQL account for the `insightwrite` database.
-- `JWT_SECRET`: a random value at least 32 bytes long.
-- `DEEPSEEK_API_KEY`: your own DeepSeek API key.
-- `MAIL_USERNAME` and `MAIL_PASSWORD`: your SMTP account and authorization code.
+| Variable | Purpose |
+| --- | --- |
+| `DB_USERNAME`, `DB_PASSWORD` | Local MySQL account for the `insightwrite` database. |
+| `JWT_SECRET` | Random secret at least 32 bytes long. |
+| `DEEPSEEK_API_KEY` | Local AI provider API key. |
+| `MAIL_USERNAME`, `MAIL_PASSWORD` | SMTP account and authorization code. |
 
 Start both services:
 
@@ -114,10 +119,12 @@ Start both services:
 
 After startup:
 
-- Backend: `http://localhost:8080`
-- Frontend: `http://localhost:5173`
+| Service | URL |
+| --- | --- |
+| Backend | `http://localhost:8080` |
+| Frontend | `http://localhost:5173` |
 
-The backend reads the root `.env` file during local startup. The real `.env` file is intentionally ignored by Git and must not be committed.
+The real `.env` file is intentionally ignored by Git and must not be committed.
 
 ## Manual Startup
 
@@ -137,35 +144,31 @@ npm.cmd run dev
 
 ## Database
 
-The schema is available at:
+The schema is available at `sql/schema.sql`.
 
-```text
-sql/schema.sql
-```
-
-The repository does not include real user data. If you want Spring Boot to initialize sample learning content during local development, set:
+The repository does not include real user data. To initialize sample learning content during local development, set this in `.env`:
 
 ```properties
 SQL_INIT_MODE=always
 ```
 
-in your local `.env` file. For normal development, the default is:
+For normal development, keep the default:
 
 ```properties
 SQL_INIT_MODE=never
 ```
 
-## Docker
+## Docker Reference
 
-Docker deployment files are provided as a reference under `docker/`.
+Docker files are provided as deployment references under `docker/`. They are not required for local development.
 
 ```powershell
 Copy-Item docker\.env.example docker\.env
 ```
 
-Fill in production-safe values, build the frontend, provide TLS certificates under `docker/certs`, then start the stack from the `docker/` directory.
+Use production-safe values, build the frontend, provide TLS certificates under `docker/certs`, and run the stack from the `docker/` directory on a Docker-capable host.
 
-This project is not currently offered as a hosted production service.
+This project is not currently offered as a hosted public service because live AI calls and long-term operation would create ongoing cost and maintenance obligations.
 
 ## Verification
 
@@ -193,15 +196,15 @@ mvn.cmd test
 ## Security Notes
 
 - No real API keys, database credentials, SMTP authorization codes, tokens, or secrets should be committed.
-- `.env` and local override files are ignored by Git.
+- `.env`, build outputs, uploaded files, and local runtime files are ignored by Git.
 - The project includes tests around authentication, JWT behavior, sensitive defaults, credit atomicity, input limits, and deployment-sensitive configuration.
-- A security review was performed before preparing the project for open-source publication, but this repository is provided as a reference project and does not guarantee production security for every deployment environment.
+- A security review was performed before open-source publication, but this repository is a reference project and still requires environment-specific production review before real deployment.
 
 ## 中文补充
 
-InsightWrite 2.0 侧重两类英语学习路径：一类是围绕用户自己的写作进行批改、升级和复盘学习；另一类是通过佳作精读、欣赏和吸收来提升表达能力。
+InsightWrite 2.0 侧重两类英语学习路径：一类是围绕用户自己的写作进行诊断、批注、修改升级和复盘；另一类是通过佳作精读、表达知识库和收藏记录吸收更好的表达方式。
 
-项目中的积分系统不是为了商业盈利或真实支付，而是用于模拟和实现 AI 请求额度、成本保护与防滥用控制。由于线上 AI 调用和长期维护会产生持续成本，本项目目前不提供公开部署版本。
+项目中的积分系统不是商业支付设计，而是用于 AI 调用成本保护、额度管理和防滥用控制。当前仓库作为作品集和开源参考项目发布，不提供公开在线部署版本。
 
 ## License
 
