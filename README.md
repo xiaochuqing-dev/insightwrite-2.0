@@ -17,7 +17,11 @@ It is published as an open-source portfolio and reference project, with emphasis
 | Usage control | A credit system for AI cost awareness, quota management, and abuse prevention. |
 | Portfolio value | A complete product surface across frontend experience, backend services, auth, persistence, and tests. |
 
-## Workspace Preview
+## Product Screens
+
+The welcome page introduces the product identity and learning direction before users enter the writing workspace.
+
+![InsightWrite welcome page](docs/showcase/welcome.png)
 
 The main workspace is designed around writing input, task context, score visibility, mode selection, and follow-up learning actions.
 
